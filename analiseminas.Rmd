@@ -1,0 +1,334 @@
+---
+title: "Amostra das Mulheres sobre o curso de Ciência da Computação"
+output:
+  html_document: default
+  html_notebook: default
+---
+
+*Carregando bibliotecas necessárias*
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(readr)
+library(dplyr) 
+library(ggplot2)
+
+```
+
+```{r}
+#lê o csv
+amostra <- read.csv("amostra.csv")
+
+```
+
+*O quanto se interessa pelo tema de tecnologia*
+
+No quesito **mulheres** vemos que a maioria tem bastante interesse pelo tema. Visto que a maior parte das respostas se concentram entre 6 e 7.
+
+```{r}
+ggplot(data = amostra, aes(x = Interesse, y = "")) + #escolho o dado base e defino o x e y do gráfico
+  geom_bar(stat="identity", fill="#7877b8", colour = "#4f3a78") + #escolho o tipo de gráfico, determino o preenchimento e a cor da linha
+  scale_x_discrete(limits = c(1,2,3,4,5,6,7)) + #forço o ggplot a exibir todos os números em x
+  labs(y = "Número de pessoas", x = "Nível de interesse") #defino as legendas
+```
+
+*Análise de atividades durante o ensino médio*
+
+É possível observar que mesmo com 14 meninas não tendo participado de nenhuma atividade relativa a tecnologia no ensino médio, 19 ainda apresentaram participação em atividades e cursos envolvendo a área.
+
+```{r}
+ggplot(data = amostra, aes(x = Em.qual.das.seguintes.atividades.você.participou.no.ensino.médio., y = "", fill = Em.qual.das.seguintes.atividades.você.participou.no.ensino.médio.)) + #escolho o dado base e defino o x e y do gráfico
+  geom_bar(stat="identity",  colour = "#4f3a78") + #escolho o tipo de gráfico, determino o preenchimento e a cor da linha
+  labs(y = "Número de pessoas", x = "Atividades") + #arrumo as legendas 
+  theme(axis.text.x = element_blank()) +
+  scale_fill_discrete(name = "Atividades que participou no EM")
+```
+
+*Análise do nível de interesse no ensino médio por Ciência da Computação/Programação*
+
+Foi visto que, de 33 meninas, 25 delas (76%) apresentaram interesse no campo de Ciência da Computação/Programação ainda na escola.
+
+```{r}
+slices <- c(25, 8) #escolho o dado base
+lbls <- c("Maior interesse", "Menor interesse") #defino as legendas
+pct <- round(slices/sum(slices)*100) #calculo as porcentagens
+lbls <- paste(lbls, pct)  
+lbls <- paste(lbls,"%",sep="") 
+pie(slices,labels = lbls, col=topo.colors(length(lbls)),
+  	main="Nível de interesse por Ciência da Computação/Programação")
+```
+
+*Em quantas olimpíadas já havia participado*
+
+Podemos perceber que grande quantidade das meninas (85%) não havia participado de nenhuma olimpíada anteriormente.
+
+```{r}
+slices <- c(28, 4, 1) #escolho o dado base
+lbls <- c("NA", "Várias (mais de três)", "Apenas uma") #defino as legendas
+pct <- round(slices/sum(slices)*100) #calculo as porcentagens
+lbls <- paste(lbls, pct)  
+lbls <- paste(lbls,"%",sep="") 
+pie(slices,labels = lbls, col=topo.colors(length(lbls)),
+  	main="Em quantas olimpíadas já havia participado")
+```
+
+*Análise do nível de concordância com a afirmação "Na escola eu sempre estive entre os melhores em matemática"*
+
+Notamos que, de alguma forma, 23 meninas concordaram com a afirmação, em oposição a 8 que discordaram e 2 que não expressaram opinião clara a respeito.
+
+```{r}
+ggplot(data = amostra, aes(x = amostra$Na.escola..eu.sempre.estive.entre.os.melhores.em.matemática, y = "", fill = amostra$Na.escola..eu.sempre.estive.entre.os.melhores.em.matemática)) + #escolho o dado base e defino o x e y do gráfico
+  geom_bar(stat="identity",  colour = "#4f3a78") + #escolho o tipo de gráfico, determino o preenchimento e a cor da linha
+  labs(y = "Número de pessoas", x = "Nível de concordância") + #defino as legendas 
+  theme(axis.text.x = element_blank()) +
+  scale_fill_discrete(name = "Nível de concordância com a afirmação")
+```
+
+*Análise do nível de concordância com a afirmação "É importante para mim que o trabalho que eu faça tenha grande impacto para o mundo"* 
+
+Podemos visualizar que 31 meninas concordaram, de alguma forma, com a afirmação.
+
+```{r}
+ggplot(data = amostra, aes(x = amostra$É.importante.para.mim.que.o.trabalho.que.eu.faça.tenha.grande.impacto.para.o.mundo, y = "", fill = amostra$É.importante.para.mim.que.o.trabalho.que.eu.faça.tenha.grande.impacto.para.o.mundo)) + #escolho o dado base e defino o x e y do gráfico
+  geom_bar(stat="identity",  colour = "#4f3a78") + #escolho o tipo de gráfico, determino o preenchimento e a cor da linha
+  labs(y = "Número de pessoas", x = "Nível de concordância") + #defino as legendas 
+  theme(axis.text.x = element_blank()) +
+  scale_fill_discrete(name = "Nível de concordância com a afirmação")
+```
+
+*Análise do nível de concordância com a afirmação "Seria muito bom poder programar um aplicativo para um dispositivo móvel"* 
+
+Podemos visualizar que 31 meninas concordaram, 1 discordou e 2 não expressaram opinião clara a respeito da afirmação.
+
+```{r}
+ggplot(data = amostra, aes(x = amostra$Seria.muito.bom.poder.programar.um.aplicativo.para.um.dispositivo.móvel, y = "", fill = amostra$Seria.muito.bom.poder.programar.um.aplicativo.para.um.dispositivo.móvel)) + #escolho o dado base e defino o x e y do gráfico
+  geom_bar(stat="identity",  colour = "#4f3a78") + #escolho o tipo de gráfico, determino o preenchimento e a cor da linha
+  labs(y = "Número de pessoas", x = "Nível de concordância") + #defino as legendas 
+  theme(axis.text.x = element_blank()) +
+  scale_fill_discrete(name = "Nível de concordância com a afirmação")
+```
+
+*Análise do nível de concordância com a afirmação "Meus amigos e colegas estudavam computação ou outro curso em tecnologia da informação"*
+
+Observamos que 16 meninas concordaram, de alguma forma, com a afirmação, enquanto 14 discordaram e 3 não expressaram opinião clara a respeito.
+
+```{r}
+ggplot(data = amostra, aes(x = amostra$Meus.amigos.e.colegas.estudavam.computação.ou.outro.curso.em.tecnologia.da.informação, y = "", fill = amostra$Meus.amigos.e.colegas.estudavam.computação.ou.outro.curso.em.tecnologia.da.informação)) + #escolho o dado base e defino o x e y do gráfico
+  geom_bar(stat="identity",  colour = "#4f3a78") + #escolho o tipo de gráfico, determino o preenchimento e a cor da linha
+  labs(y = "Número de pessoas", x = "Nível de concordância") + #defino as legendas 
+  theme(axis.text.x = element_blank()) +
+  scale_fill_discrete(name = "Nível de concordância com a afirmação")
+```
+
+*Análise do nível de concordância com a afirmação "Os professores me fizeram sentir que eu pertencia àquela aula"*
+
+Observamos que, de alguma forma, 14 meninas concordaram com a afirmação, 11 discordaram e 8 não expressaram opinião clara a respeito.
+```{r}
+ggplot(data = amostra, aes(x = amostra$Os.professores.me.fizeram.sentir.que.eu.pertencia.àquela.aula, y = "", fill = amostra$Os.professores.me.fizeram.sentir.que.eu.pertencia.àquela.aula)) + #escolho o dado base e defino o x e y do gráfico
+  geom_bar(stat="identity",  colour = "#4f3a78") + #escolho o tipo de gráfico, determino o preenchimento e a cor da linha
+  labs(y = "Número de pessoas", x = "Nível de concordância") + #defino as legendas 
+  theme(axis.text.x = element_blank()) +
+  scale_fill_discrete(name = "Nível de concordância com a afirmação")
+```
+
+*Análise do nível de concordância com a afirmação "Assunto divertido e aplicável"*
+
+Visualizamos que, de alguma forma, 14 meninas concordaram com a afirmação, 14 discordaram e 5 não expressaram opinião clara a respeito.
+```{r}
+ggplot(data = amostra, aes(x = amostra$Assunto.divertido.e.aplicável, y = "", fill = amostra$Assunto.divertido.e.aplicável)) + #escolho o dado base e defino o x e y do gráfico
+  geom_bar(stat="identity",  colour = "#4f3a78") + #escolho o tipo de gráfico, determino o preenchimento e a cor da linha
+  labs(y = "Número de pessoas", x = "Nível de concordância") + #defino as legendas 
+  theme(axis.text.x = element_blank()) +
+  scale_fill_discrete(name = "Nível de concordância com a afirmação")
+```
+
+*Análise do nível de concordância com a afirmação "Aprendi muito"*
+
+Observamos que, de alguma forma, 13 meninas concordaram com a afirmação, 12 discordaram e 8 não expressaram opinião clara a respeito.
+
+```{r}
+ggplot(data = amostra, aes(x = amostra$Aprendi.muito, y = "", fill = amostra$Aprendi.muito)) + #escolho o dado base e defino o x e y do gráfico
+  geom_bar(stat="identity",  colour = "#4f3a78") + #escolho o tipo de gráfico, determino o preenchimento e a cor da linha
+  labs(y = "Número de pessoas", x = "Nível de concordância") + #defino as legendas 
+  theme(axis.text.x = element_blank()) +
+  scale_fill_discrete(name = "Nível de concordância com a afirmação")
+```
+
+*Análise do nível de concordância com a afirmação "Professores especialistas"*
+
+Observamos que 15 meninas concordaram com a afirmação, 12 discordaram e 6 não expressaram opinião clara a respeito.
+
+```{r}
+ggplot(data = amostra, aes(x = amostra$Professores.especialistas, y = "", fill = amostra$Professores.especialistas)) + #escolho o dado base e defino o x e y do gráfico
+  geom_bar(stat="identity",  colour = "#4f3a78") + #escolho o tipo de gráfico, determino o preenchimento e a cor da linha
+  labs(y = "Número de pessoas", x = "Nível de concordância") + #defino as legendas 
+  theme(axis.text.x = element_blank()) +
+  scale_fill_discrete(name = "Nível de concordância com a afirmação")
+```
+
+*Análise do nível de concordância com a afirmação "Um professor/orientador em quem eu confiava me incentivou a estudar ciência da computação"*
+
+Observamos que 16 meninas concordaram, de alguma forma, com a afirmação, em oposição a 12 que discordaram e 5 que não expressaram opinião clara a respeito.
+
+```{r}
+ggplot(data = amostra, aes(x = amostra$Indique.seu.nível.de.acordo.em.relação.às.seguintes.afirmações..Por.favor..considere.todas.as.perguntas.com.cuidado..Suas.respostas.e.opiniões.são.muito.importantes.para.nós...Um.professor...orientador.em.quem.eu.confiava.me.incentivou.a.estudar.ciência.da.computação., y = "", fill = amostra$Indique.seu.nível.de.acordo.em.relação.às.seguintes.afirmações..Por.favor..considere.todas.as.perguntas.com.cuidado..Suas.respostas.e.opiniões.são.muito.importantes.para.nós...Um.professor...orientador.em.quem.eu.confiava.me.incentivou.a.estudar.ciência.da.computação.)) + #escolho o dado base e defino o x e y do gráfico
+  geom_bar(stat="identity",  colour = "#4f3a78") + #escolho o tipo de gráfico, determino o preenchimento e a cor da linha
+  labs(y = "Número de pessoas", x = "Nível de concordância") + #defino as legendas 
+  theme(axis.text.x = element_blank()) +
+  scale_fill_discrete(name = "Nível de concordância com a afirmação")
+```
+
+*Análise do nível de concordância com a afirmação "Excelentes professores"*
+
+Observamos que 17 meninas concordaram, de alguma forma, com a afirmação, em oposição a 10 que discordaram e 6 que não expressaram opinião clara a respeito.
+
+```{r}
+ggplot(data = amostra, aes(x = amostra$Excelentes.professores, y = "", fill = amostra$Excelentes.professores)) + #escolho o dado base e defino o x e y do gráfico
+  geom_bar(stat="identity",  colour = "#4f3a78") + #escolho o tipo de gráfico, determino o preenchimento e a cor da linha
+  labs(y = "Número de pessoas", x = "Nível de concordância") + #defino as legendas 
+  theme(axis.text.x = element_blank()) +
+  scale_fill_discrete(name = "Nível de concordância com a afirmação")
+```
+
+*Análise do nível de concordância com a afirmação "Problemas teóricos e abstratos são interessantes"*
+
+Observamos que 23 meninas concordaram, de alguma forma, com a afirmação, em oposição a 7 que discordaram e 3 que não expressaram opinião clara a respeito.
+
+```{r}
+ggplot(data = amostra, aes(x = amostra$Problemas.teóricos.e.abstratos.são.interessantes, y = "", fill = amostra$Problemas.teóricos.e.abstratos.são.interessantes)) + #escolho o dado base e defino o x e y do gráfico
+  geom_bar(stat="identity",  colour = "#4f3a78") + #escolho o tipo de gráfico, determino o preenchimento e a cor da linha
+  labs(y = "Número de pessoas", x = "Nível de concordância") + #defino as legendas 
+  theme(axis.text.x = element_blank()) +
+  scale_fill_discrete(name = "Nível de concordância com a afirmação")
+```
+
+*Análise do nível de concordância com a afirmação "Os professores me fizeram acreditar que eu poderia ter sucesso"*
+
+Observamos que 18 meninas concordaram, de alguma forma, com a afirmação, em oposição a 9 que discordaram e 6 que não expressaram opinião clara a respeito.
+
+```{r}
+ggplot(data = amostra, aes(x = amostra$Um.professor.que.eu.confiava..ou.um.orientador..me.incentivou.a.estudar.campos.de.exatas, y = "", fill = amostra$Um.professor.que.eu.confiava..ou.um.orientador..me.incentivou.a.estudar.campos.de.exatas)) + #escolho o dado base e defino o x e y do gráfico
+  geom_bar(stat="identity",  colour = "#4f3a78") + #escolho o tipo de gráfico, determino o preenchimento e a cor da linha
+  labs(y = "Número de pessoas", x = "Nível de concordância") + #defino as legendas 
+  theme(axis.text.x = element_blank()) +
+  scale_fill_discrete(name = "Nível de concordância com a afirmação")
+```
+
+*Análise do nível de concordância com a afirmação "Meus amigos e colegas me incentivaram a estudar computação ou outro curso em tecnologia da informação"*
+
+Observamos que 19 meninas concordaram, de alguma forma, com a afirmação, em oposição a 8 que discordaram e 6 que não expressaram opinião clara a respeito.
+
+```{r}
+ggplot(data = amostra, aes(x = amostra$Meus.amigos.e.colegas.me.incentivaram.a.estudar.computação.ou.outro.curso.em.tecnologia.da.informação., y = "", fill = amostra$Meus.amigos.e.colegas.me.incentivaram.a.estudar.computação.ou.outro.curso.em.tecnologia.da.informação.)) + #escolho o dado base e defino o x e y do gráfico
+  geom_bar(stat="identity",  colour = "#4f3a78") + #escolho o tipo de gráfico, determino o preenchimento e a cor da linha
+  labs(y = "Número de pessoas", x = "Nível de concordância") + #defino as legendas 
+  theme(axis.text.x = element_blank()) +
+  scale_fill_discrete(name = "Nível de concordância com a afirmação")
+```
+
+*Análise do nível de concordância com a afirmação "Eu gosto de desmontar as coisas para ver como elas funcionam"*
+
+Observamos que 24 meninas concordaram, de alguma forma, com a afirmação, em oposição a 6 que discordaram e 3 que não expressaram opinião clara a respeito.
+
+```{r}
+ggplot(data = amostra, aes(x = amostra$Gosto.de.desmontar.coisas.para.ver.como.elas.funcionam, y = "", fill = amostra$Gosto.de.desmontar.coisas.para.ver.como.elas.funcionam)) + #escolho o dado base e defino o x e y do gráfico
+  geom_bar(stat="identity",  colour = "#4f3a78") + #escolho o tipo de gráfico, determino o preenchimento e a cor da linha
+  labs(y = "Número de pessoas", x = "Nível de concordância") + #defino as legendas 
+  theme(axis.text.x = element_blank()) +
+  scale_fill_discrete(name = "Nível de concordância com a afirmação")
+```
+
+*Análise do nível de concordância com a afirmação "Gosto de dividir problemas em partes menores e resolvê-los"*
+
+Observamos que 30 meninas concordaram, de alguma forma, com a afirmação, em oposição a 1 que discordou e 2 que não expressaram opinião clara a respeito.
+
+```{r}
+ggplot(data = amostra, aes(x = amostra$Gosto.de.dividir.problemas.em.partes.menores.e.resolvê.los, y = "", fill = amostra$Gosto.de.dividir.problemas.em.partes.menores.e.resolvê.los)) + #escolho o dado base e defino o x e y do gráfico
+  geom_bar(stat="identity",  colour = "#4f3a78") + #escolho o tipo de gráfico, determino o preenchimento e a cor da linha
+  labs(y = "Número de pessoas", x = "Nível de concordância") + #defino as legendas 
+  theme(axis.text.x = element_blank()) +
+  scale_fill_discrete(name = "Nível de concordância com a afirmação")
+```
+
+*Análise do nível de concordância com a afirmação "Amo matemática"*
+
+Observamos que 21 meninas concordaram, de alguma forma, com a afirmação, em oposição a 8 que discordaram e 4 que não expressaram opinião clara a respeito.
+
+```{r}
+ggplot(data = amostra, aes(x = amostra$Amo.matemática, y = "", fill = amostra$Amo.matemática)) + #escolho o dado base e defino o x e y do gráfico
+  geom_bar(stat="identity",  colour = "#4f3a78") + #escolho o tipo de gráfico, determino o preenchimento e a cor da linha
+  labs(y = "Número de pessoas", x = "Nível de concordância") + #defino as legendas 
+  theme(axis.text.x = element_blank()) +
+  scale_fill_discrete(name = "Nível de concordância com a afirmação")
+```
+
+*Análise do nível de concordância com a afirmação "Eu acredito que eu saiba diferenciar Ciência da Computação de Tecnologia da Informação"*
+
+Observamos que 25 meninas concordaram com a afirmação, em comparação a apenas 2 que discordaram e 4 que não expressaram opinião clara a respeito.
+
+```{r}
+ggplot(data = amostra, aes(x = amostra$Eu.acredito.que.eu.saiba.diferenciar.Ciência.da.Computação.de.Tecnologia.da.Informação, y = "", fill = amostra$Eu.acredito.que.eu.saiba.diferenciar.Ciência.da.Computação.de.Tecnologia.da.Informação)) + #escolho o dado base e defino o x e y do gráfico
+  geom_bar(stat="identity",  colour = "#4f3a78") + #escolho o tipo de gráfico, determino o preenchimento e a cor da linha
+  labs(y = "Número de pessoas", x = "Nível de concordância") + #defino as legendas 
+  theme(axis.text.x = element_blank()) +
+  scale_fill_discrete(name = "Nível de concordância com a afirmação")
+```
+
+*Análise do nível de concordância com a afirmação "Professores fizeram computação parecer interessante"*
+
+Vimos que 15 meninas concordaram de alguma forma com a afirmação, 12 discordaram e 6 não expressaram nenhuma opinião clara a respeito.
+
+```{r}
+ggplot(data = amostra, aes(x = amostra$Professores.fizeram.computação.parecer.interessante, y = "", fill = amostra$Professores.fizeram.computação.parecer.interessante)) + #escolho o dado base e defino o x e y do gráfico
+  geom_bar(stat="identity",  colour = "#4f3a78") + #escolho o tipo de gráfico, determino o preenchimento e a cor da linha
+  labs(y = "Número de pessoas", x = "Nível de concordância") + #defino as legendas 
+  theme(axis.text.x = element_blank()) +
+  scale_fill_discrete(name = "Nível de concordância com a afirmação")
+```
+
+*Análise do nível de concordância com a afirmação "Os professores me fizeram acreditar que eu poderia ter sucesso"*
+
+Observamos que 18 meninas concordaram, de alguma forma, com a afirmação, em oposição a 9 que discordaram e 6 que não expressaram opinião clara a respeito.
+
+```{r}
+ggplot(data = amostra, aes(x = amostra$Os.professores.me.fizeram.acreditar.que.eu.poderia.ter.sucesso, y = "", fill = amostra$Os.professores.me.fizeram.acreditar.que.eu.poderia.ter.sucesso)) + #escolho o dado base e defino o x e y do gráfico
+  geom_bar(stat="identity",  colour = "#4f3a78") + #escolho o tipo de gráfico, determino o preenchimento e a cor da linha
+  labs(y = "Número de pessoas", x = "Nível de concordância") + #defino as legendas 
+  theme(axis.text.x = element_blank()) +
+  scale_fill_discrete(name = "Nível de concordância com a afirmação")
+```
+
+*Análise do nível de concordância com a afirmação "As mídias retratam os programadores de um modo negativo"*
+
+Observamos que 13 meninas concordaram com a afirmação, 13 discordaram e 7 não expressaram opinião clara a respeito.
+
+```{r}
+ggplot(data = amostra, aes(x = amostra$As.mídias.retratam.os.programadores.de.um.modo.negativo, y = "", fill = amostra$As.mídias.retratam.os.programadores.de.um.modo.negativo)) + #escolho o dado base e defino o x e y do gráfico
+  geom_bar(stat="identity",  colour = "#4f3a78") + #escolho o tipo de gráfico, determino o preenchimento e a cor da linha
+  labs(y = "Número de pessoas", x = "Nível de concordância") + #defino as legendas 
+  theme(axis.text.x = element_blank()) +
+  scale_fill_discrete(name = "Nível de concordância com a afirmação")
+```
+
+*Análise do nível de concordância com a afirmação "A mídia (por exemplo, TV, filmes, música) influenciou"*
+
+Observamos que, apesar dos diferentes níveis de concordância, 20 meninas concordaram, de alguma forma, que as mídias sociais as influenciou a respeito de Ciência da Computação.
+
+```{r}
+ggplot(data = amostra, aes(x = amostra$A.mídia..por.exemplo..TV..filmes..música..influenciou, y = "", fill = amostra$A.mídia..por.exemplo..TV..filmes..música..influenciou)) + #escolho o dado base e defino o x e y do gráfico
+  geom_bar(stat="identity",  colour = "#4f3a78") + #escolho o tipo de gráfico, determino o preenchimento e a cor da linha
+  labs(y = "Número de pessoas", x = "Nível de concordância") + #defino as legendas 
+  theme(axis.text.x = element_blank()) +
+  scale_fill_discrete(name = "Nível de concordância com a afirmação")
+```
+
+*Análise do nível de concordância com a afirmação "Mídias sociais (ex: Facebook, Youtube) influenciaram"*
+
+Observamos que, apesar dos diferentes níveis de concordância, 24 meninas concordaram, de alguma forma, que a mídia as influenciou a respeito de Ciência da Computação.
+
+```{r}
+ggplot(data = amostra, aes(x = amostra$Mídias.sociais..ex..Facebook..YouTube..influenciaram, y = "", fill = amostra$Mídias.sociais..ex..Facebook..YouTube..influenciaram)) + #escolho o dado base e defino o x e y do gráfico
+  geom_bar(stat="identity",  colour = "#4f3a78") + #escolho o tipo de gráfico, determino o preenchimento e a cor da linha
+  labs(y = "Número de pessoas", x = "Nível de concordância") + #defino as legendas 
+  theme(axis.text.x = element_blank()) +
+  scale_fill_discrete(name = "Nível de concordância com a afirmação")
+```
